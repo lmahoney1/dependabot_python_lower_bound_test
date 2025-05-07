@@ -25,7 +25,7 @@ Enabled 'Dependabot alerts' and 'Dependabot security updates' in repository sett
 
 ![](./doc/img/dependabot-settings.png)
 
-Created pull request [#1](https://github.com/lmahoney1/dependabot_python_lower_bound_test/pull/1) which added `"fastapi >= 0.60.0"` as a dependency.
+Created pull request [#1](https://github.com/lmahoney1/dependabot_python_lower_bound_test/pull/1) which added `"fastapi >= 0.60.0"` as a dependency. [Security Advisory that applies to this version](https://github.com/advisories/GHSA-8h2j-cgx8-6xv7). With the dependency specified like this it's possible for a version < 0.65.2 (patched version) to be downloaded.
 
 ![](./doc/img/fast-api-dependency.png)
 
@@ -39,7 +39,7 @@ Not seeing any security alerts generated:
 
 ### Expectation
 
-Was hoping dependabot would raise a secuirty alert and attempt to raise the lower bound to the lowest version of the package that does not have a vulnerability.
+Was hoping dependabot would raise a security alert and attempt to raise the lower bound to the lowest version of the package that does not have a vulnerability.
 
 In this case I would like to see dependabot change the entry in `pyproject.toml` to be `fastapi >= 0.65.2`
 
@@ -69,3 +69,9 @@ build-backend = "setuptools.build_meta"
 ```
 
 Possible dependabot isn't designed to work for python dependencies only specified with a lower-bound like this?
+
+### Strict Equals
+
+Through testing done with our on-premise GitHub Enterprise server (3.16) when using `==` instead of `>=` to specify the dependency versions dependabot would generate the security alerts properly.
+
+However, a lot of the python packages we are creating are designed to be 'libraries' - to be used with other libraries to develop an application. If the libraries are sharing dependencies with different `==` versions they will conflict and won't be able to be installed properly. Specifying dependencies with `>=` seems to be a much more flexible solution for us.
