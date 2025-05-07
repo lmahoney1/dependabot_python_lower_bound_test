@@ -1,0 +1,20 @@
+[project]
+name = "dependabot_python_test"
+version = "0.1.0"
+description = "dependabot python lower-bound dependency test"
+readme = "README.md"
+requires-python = ">=3.7"
+license = {file = "LICENSE.txt"}
+authors = [
+    {name="Liam Mahoney", email="lmahoney@oshkoshcorp.com" } 
+]
+maintainers = [
+    {name="Liam Mahoney", email="lmahoney@oshkoshcorp.com"}
+]
+dependencies = [
+    "requests >= 2.0.0"
+]
+
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
